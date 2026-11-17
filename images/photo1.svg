@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FFB9D7"/>
+      <stop offset="100%" stop-color="#6C4AB6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg1)"/>
+  <circle cx="150" cy="120" r="80" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="660" cy="140" r="100" fill="rgba(255,255,255,0.15)"/>
+  <rect x="210" y="170" width="380" height="220" rx="26" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.4)"/>
+  <circle cx="340" cy="250" r="52" fill="#FFD9E9"/>
+  <circle cx="470" cy="250" r="52" fill="#FFD9E9"/>
+  <path d="M315 335 C 365 390, 420 390, 470 335" fill="none" stroke="#FFF8FC" stroke-width="20" stroke-linecap="round"/>
+  <text x="400" y="520" text-anchor="middle" fill="#FFF8FC" font-size="36" font-family="Arial, sans-serif" font-weight="700">Our First Memory</text>
+</svg>

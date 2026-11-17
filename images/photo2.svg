@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#E88E8E"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg2)"/>
+  <circle cx="650" cy="80" r="70" fill="rgba(255,255,255,0.18)"/>
+  <circle cx="150" cy="520" r="100" fill="rgba(255,255,255,0.18)"/>
+  <rect x="180" y="180" width="440" height="200" rx="32" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.4)"/>
+  <path d="M203 220 Q 400 130 596 220" fill="none" stroke="#FFF8FC" stroke-width="20" stroke-linecap="round"/>
+  <path d="M275 340 C 295 225, 335 210, 400 280 C 460 210, 520 220, 535 340" fill="none" stroke="#FFF8FC" stroke-width="18" stroke-linecap="round"/>
+  <text x="400" y="500" text-anchor="middle" fill="#FFF8FC" font-size="34" font-family="Arial, sans-serif" font-weight="700">Sweet Moments</text>
+</svg>

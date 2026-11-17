@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Surprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="lock-page">
+    <div class="floating-hearts" aria-hidden="true"></div>
+
+    <main class="lock-screen">
+      <div class="lock-card">
+        <p class="eyebrow">For the love of my life</p>
+        <h1>Happy Birthday, Love</h1>
+        <p class="subtitle">This page is protected by a secret passcode.</p>
+
+        <form id="password-form" class="password-form">
+          <label for="passcode" class="sr-only">Passcode</label>
+          <input
+            id="passcode"
+            name="passcode"
+            type="password"
+            placeholder="Enter your special code"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-primary">
+            Unlock the surprise
+          </button>
+        </form>
+
+        <p id="password-error" class="password-error" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
