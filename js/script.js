@@ -80,7 +80,7 @@ const PHOTOS = [
   },
   {
     src: "images/r.4.jpg",
-    title: "A Promise of Forever 💍",
+    title: "A Promise  💍",
     caption:
       "Distance may separate our places, but nothing can separate two hearts that truly belong together.",
   },
@@ -552,27 +552,34 @@ function initMorePhotos(container) {
 
 /* ---------- 16. OUR JOURNEY (BRANCH TIMELINE) ---------- */
 
+
+/* ---------- OUR JOURNEY: ANIMATED MEMORY TREE ---------- */
+
 function renderJourney() {
   const container = $("#journey");
-
   if (!container) return;
 
   container.innerHTML = MEMORIES.map((memory, index) => {
-    const extra = Array.isArray(memory.more) ? memory.more.length : 0;
+    const extra = Array.isArray(memory.more) ? memory.more : [];
 
     return `
       <article
         class="journey-card reveal"
-        draggable="true"
         tabindex="0"
         data-memory="${index}"
-        aria-label="${esc(memory.title)}. Drag to rearrange."
       >
         <span class="branch-dot" aria-hidden="true">♥</span>
 
         <div class="journey-box glass">
+
+          <!-- MAIN MEMORY IMAGE -->
           <div class="journey-photo-wrap">
-            <button type="button" class="zoom-trigger" data-zoom="0" aria-label="View ${esc(memory.title)} photo full screen">
+            <button
+              type="button"
+              class="zoom-trigger"
+              data-zoom="0"
+              aria-label="View ${esc(memory.title)}"
+            >
               <img
                 class="journey-image"
                 src="${memory.image ? esc(memory.image) : placeholder("Add your journey photo")}"
@@ -582,107 +589,115 @@ function renderJourney() {
                 draggable="false"
               >
             </button>
-            <span class="journey-photo-label">OUR MEMORY ❤️</span>
+
+            <span class="journey-photo-label">
+              OUR MEMORY ❤️
+            </span>
           </div>
 
+          <!-- MEMORY DETAILS -->
           <div class="journey-content">
-            <span class="journey-date">${esc(memory.date)}</span>
-            <h3 class="journey-title">${esc(memory.title)}</h3>
-            <p class="journey-text">${esc(memory.text)}</p>
 
+            <span class="journey-date">
+              ${esc(memory.date)}
+            </span>
+
+            <h3 class="journey-title">
+              ${esc(memory.title)}
+            </h3>
+
+            <p class="journey-text">
+              ${esc(memory.text)}
+            </p>
+
+            <!-- EXPANDABLE PHOTOS -->
             ${
-              extra
-                ? `<button type="button" class="more-photos-btn" data-zoom="1">
-                    <span>📸 See more photos</span>
-                    <span class="mp-count">+${extra}</span>
-                  </button>`
+              extra.length
+                ? `
+                  <button
+                    type="button"
+                    class="more-photos-btn"
+                    aria-expanded="false"
+                    aria-controls="journey-photos-${index}"
+                  >
+                    <span>♡ See more memories</span>
+                    <span class="mp-count">+${extra.length}</span>
+                    <span class="more-chevron">⌄</span>
+                  </button>
+
+                  <div
+                    class="journey-more-grid"
+                    id="journey-photos-${index}"
+                    hidden
+                  >
+                    ${extra.map((src, i) => `
+                      <button
+                        type="button"
+                        class="journey-thumb"
+                        data-zoom="${i + 1}"
+                        aria-label="View memory photo ${i + 1}"
+                      >
+                        <img
+                          src="${esc(src)}"
+                          alt="${esc(memory.alt || memory.title)} - Photo ${i + 1}"
+                          loading="lazy"
+                          draggable="false"
+                        >
+                        <span class="thumb-heart">♥</span>
+                      </button>
+                    `).join("")}
+                  </div>
+                `
                 : ""
             }
 
             <div class="journey-footer">
               <span class="journey-number"></span>
-              <span class="journey-drag">⠿ DRAG TO MOVE</span>
+              <span>MADE WITH LOVE ❤️</span>
             </div>
+
           </div>
         </div>
       </article>
     `;
   }).join("");
 
+  // Expand/collapse additional photos
+  container.addEventListener("click", (event) => {
+    const button = event.target.closest(".more-photos-btn");
+    if (!button) return;
+
+    const panel = document.getElementById(
+      button.getAttribute("aria-controls")
+    );
+
+    if (!panel) return;
+
+    const isOpen = button.getAttribute("aria-expanded") === "true";
+
+    button.setAttribute("aria-expanded", String(!isOpen));
+    panel.hidden = isOpen;
+
+    button.querySelector(".more-chevron").textContent =
+      isOpen ? "⌄" : "⌃";
+
+    button.querySelector("span:first-child").textContent =
+      isOpen ? "♡ See more memories" : "♡ Hide memories";
+
+    if (!isOpen) {
+      panel.classList.remove("photos-enter");
+      void panel.offsetWidth;
+      panel.classList.add("photos-enter");
+
+      burstHearts(5);
+    }
+  });
+
   initReveal();
   initJourneyDragDrop();
   initJourneyViewer();
 }
 
-/* ---------- JOURNEY FULL-SCREEN VIEWER ---------- */
-
-/* ---------- 17. JOURNEY DRAG & DROP ---------- */
-
-function initJourneyDragDrop() {
-  const container = $("#journey");
-
-  if (!container) return;
-
-  let draggedCard = null;
-
-  container.addEventListener("dragstart", (event) => {
-    const card = event.target.closest(".journey-card");
-
-    if (!card) return;
-
-    draggedCard = card;
-    card.classList.add("dragging");
-
-    if (event.dataTransfer) {
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", card.dataset.memory);
-    }
-  });
-
-  container.addEventListener("dragover", (event) => {
-    event.preventDefault();
-
-    const target = event.target.closest(".journey-card");
-
-    if (!target || !draggedCard || target === draggedCard) return;
-
-    const rectangle = target.getBoundingClientRect();
-    const before = event.clientY - rectangle.top < rectangle.height / 2;
-
-    target.classList.add("drag-over");
-
-    if (before) {
-      container.insertBefore(draggedCard, target);
-    } else {
-      container.insertBefore(draggedCard, target.nextSibling);
-    }
-  });
-
-  container.addEventListener("dragleave", (event) => {
-    const card = event.target.closest(".journey-card");
-
-    if (card) {
-      card.classList.remove("drag-over");
-    }
-  });
-
-  container.addEventListener("drop", (event) => {
-    event.preventDefault();
-
-    container.querySelectorAll(".journey-card").forEach((card) => {
-      card.classList.remove("drag-over");
-    });
-  });
-
-  container.addEventListener("dragend", () => {
-    container.querySelectorAll(".journey-card").forEach((card) => {
-      card.classList.remove("dragging");
-      card.classList.remove("drag-over");
-    });
-
-    draggedCard = null;
-  });
-}
 /* ---------- 18. PHOTO GALLERY ---------- */
 
 function renderGallery() {

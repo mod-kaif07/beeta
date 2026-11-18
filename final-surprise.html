@@ -1,44 +1,617 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Final Surprise | For Nitya</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body data-page="final">
-  <header id="site-header" class="site-header"></header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Our Stars | For Nitya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
 
-  <main class="container final-wrap">
-    <div class="final-card glass">
-      <p class="eyebrow">One last surprise</p>
-      <h1>Are you <em>ready?</em></h1>
-      <p>
-        You are my favourite person, my greatest comfort, and the love I want to
-        celebrate for all the birthdays to come.
-      </p>
+    <style>
+      /* ===== Night-sky theme (only for this page) ===== */
+      body.night {
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          #3a1c5e 0%,
+          #1a0d3a 45%,
+          #0b0620 100%
+        );
+        background-attachment: fixed;
+        color: #efe6ff;
+      }
+      body.night::before {
+        background: #7a4dff;
+        opacity: 0.25;
+      }
+      body.night::after {
+        background: #ff5c93;
+        opacity: 0.2;
+      }
 
-      <button id="reveal-btn" type="button" class="btn btn-primary big-reveal" aria-expanded="false">
-        Open your surprise 🎁
-      </button>
+      .night .site-header {
+        background: rgba(12, 6, 32, 0.55);
+        border-bottom-color: rgba(255, 255, 255, 0.12);
+      }
+      .night .nav a {
+        color: #cfc3ee;
+      }
+      .night .nav a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+      .night .nav-toggle {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .night h1,
+      .night h2,
+      .night h3 {
+        color: #fff;
+      }
+      .night .eyebrow {
+        color: #ffd98a;
+      }
 
-      <div id="final-message" hidden>
-        <p class="final-big">Happy Birthday, Nitya ❤️</p>
-        <p>
-          I love you endlessly, and I hope this day reminds you how deeply you
-          are cherished. Thank you for being you, my forever favourite.
+      /* stars */
+      .sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .star {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
+        animation: twinkle var(--d, 3s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.15;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3);
+        }
+      }
+
+      .shoot {
+        position: fixed;
+        z-index: 1;
+        width: 150px;
+        height: 2px;
+        pointer-events: none;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff);
+        border-radius: 2px;
+        transform: rotate(-35deg);
+        animation: shoot 1.3s ease-out forwards;
+      }
+      @keyframes shoot {
+        0% {
+          opacity: 0;
+          translate: 0 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          translate: -420px 300px;
+        }
+      }
+
+      /* moon */
+      .moon {
+        position: fixed;
+        top: 90px;
+        right: 8vw;
+        z-index: 1;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 35%,
+          #fffbe8,
+          #ffe9a8 60%,
+          #f5cf6e
+        );
+        box-shadow:
+          0 0 60px 20px rgba(255, 233, 168, 0.35),
+          0 0 160px 60px rgba(255, 233, 168, 0.15);
+        animation: float 7s ease-in-out infinite;
+        pointer-events: none;
+      }
+      @media (max-width: 720px) {
+        .moon {
+          width: 70px;
+          height: 70px;
+          top: 80px;
+          right: 20px;
+        }
+      }
+
+      /* stage */
+      .stage {
+        min-height: calc(100vh - 80px);
+        display: grid;
+        place-items: center;
+        padding: 40px 20px 80px;
+      }
+      .scene {
+        width: min(100%, 640px);
+        text-align: center;
+        animation: sceneIn 0.9s ease both;
+      }
+      @keyframes sceneIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .night-title {
+        font-size: clamp(2.6rem, 8vw, 4.6rem);
+        line-height: 1;
+        margin-bottom: 18px;
+      }
+      .night-title em {
+        font-style: italic;
+        background: linear-gradient(120deg, #ff8fc0, #ffd98a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .night-text {
+        color: #cfc3ee;
+        line-height: 1.85;
+        font-size: 1.08rem;
+        margin: 0 0 30px;
+      }
+
+      .night-card {
+        padding: 44px 34px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .wish-btn {
+        min-height: 60px;
+        padding: 0 40px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #ff7ab6, #e63a79);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.05rem;
+        box-shadow:
+          0 0 0 0 rgba(255, 122, 182, 0.6),
+          0 16px 40px rgba(230, 58, 121, 0.45);
+        animation: glow 2.4s infinite;
+        transition: transform 0.25s;
+      }
+      .wish-btn:hover {
+        transform: translateY(-3px) scale(1.04);
+      }
+      @keyframes glow {
+        0% {
+          box-shadow:
+            0 0 0 0 rgba(255, 122, 182, 0.55),
+            0 16px 40px rgba(230, 58, 121, 0.45);
+        }
+        70%,
+        100% {
+          box-shadow:
+            0 0 0 22px rgba(255, 122, 182, 0),
+            0 16px 40px rgba(230, 58, 121, 0.45);
+        }
+      }
+      .ghost-btn {
+        min-height: 56px;
+        padding: 0 30px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: #fff;
+        transition:
+          transform 0.25s,
+          background 0.25s;
+      }
+      .ghost-btn:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      /* promises */
+      .promise-step {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #ffd98a;
+        margin: 0 0 18px;
+      }
+      .promise-text {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: clamp(1.7rem, 4.6vw, 2.5rem);
+        line-height: 1.3;
+        color: #fff;
+        min-height: 7.5em;
+        margin: 0 0 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .promise-text::after {
+        content: "|";
+        margin-left: 2px;
+        color: #ff8fc0;
+        animation: blink 0.9s steps(1) infinite;
+      }
+      .promise-text.done::after {
+        display: none;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 26px;
+      }
+      .dots span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        transition: all 0.4s;
+      }
+      .dots span.on {
+        background: #ff8fc0;
+        box-shadow: 0 0 12px #ff8fc0;
+        transform: scale(1.3);
+      }
+
+      /* the question */
+      .glow-heart {
+        font-size: 5.5rem;
+        display: block;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 0 28px rgba(255, 92, 147, 0.85));
+        animation: beat 1.6s ease-in-out infinite;
+      }
+      @keyframes beat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.18);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.12);
+        }
+      }
+      .ask-row {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        min-height: 120px;
+        align-items: flex-start;
+      }
+      #no-btn {
+        transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
+      }
+
+      /* ending */
+      .end-big {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: clamp(2.4rem, 7vw, 4rem);
+        line-height: 1.1;
+        color: #fff;
+        margin: 0 0 18px;
+      }
+      .end-sign {
+        font-family: var(--serif);
+        font-size: 1.8rem;
+        color: #ffd98a;
+        margin: 24px 0 30px;
+      }
+      .end-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+      }
+      .end-links .btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .end-links .btn-primary {
+        background: linear-gradient(135deg, #ff7ab6, #e63a79);
+        border-color: transparent;
+      }
+    </style>
+  </head>
+  <body data-page="final" class="night">
+    <header id="site-header" class="site-header"></header>
+
+    <div class="sky" id="sky" aria-hidden="true"></div>
+    <div class="moon" aria-hidden="true"></div>
+
+    <main class="stage">
+      <!-- 1. WISH -->
+      <section class="scene" id="scene-wish">
+        <p class="eyebrow">Under our stars</p>
+        <h1 class="night-title">Close your eyes.<br /><em>Make a wish.</em></h1>
+        <p class="night-text">
+          Before this little world ends, there are a few things I have never
+          said out loud. Make a wish, and I will tell you.
         </p>
-        <div class="actions" style="margin-bottom:0">
-          <a href="birthday.html" class="btn">Back to the start</a>
-          <a href="index.html" class="btn btn-primary">Lock it again 🔒</a>
-        </div>
-      </div>
-    </div>
-  </main>
+        <button id="wish-btn" type="button" class="wish-btn">
+          Make a wish ✨
+        </button>
+      </section>
 
-  <script src="js/script.js"></script>
-</body>
+      <!-- 2. PROMISES -->
+      <section class="scene" id="scene-promises" hidden>
+        <div class="night-card">
+          <p class="promise-step" id="promise-step">Promise 1 of 4</p>
+          <p class="promise-text" id="promise-text" aria-live="polite"></p>
+          <div class="dots" id="dots"></div>
+          <button id="next-btn" type="button" class="ghost-btn" hidden>
+            Next 💫
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. THE QUESTION -->
+      <section class="scene" id="scene-ask" hidden>
+        <span class="glow-heart" aria-hidden="true">💖</span>
+        <h1 class="night-title">
+          Will you stay with me<br /><em>BUBU💖</em>
+        </h1>
+        <p class="night-text">
+          Every sunrise, every dream, every chapter ahead.
+        </p>
+        <div class="ask-row" id="ask-row">
+          <button id="yes-btn" type="button" class="wish-btn">
+            Yes, always 💍
+          </button>
+          <button id="no-btn" type="button" class="ghost-btn">
+            Let me think 🤔
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. ENDING -->
+      <section class="scene" id="scene-end" hidden>
+        <div class="night-card">
+          <span class="glow-heart" aria-hidden="true">❤️</span>
+          <p class="end-big">You just made me the happiest person alive.</p>
+          <p class="night-text">
+            Thank you for being my peace, my home and my favourite person.
+            Whatever tomorrow brings, I will be right here, holding your hand.
+          </p>
+          <p class="end-sign"> yours Baar baar galti karta banda  ✨</p>
+          <div class="end-links">
+            <a href="our-journey.html" class="btn">Our journey</a>
+            <a href="birthday.html" class="btn btn-primary"
+              >Back to the start</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script>
+      (function () {
+        const $id = (id) => document.getElementById(id);
+        const reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        /* ---------- starfield ---------- */
+        const sky = $id("sky");
+        for (let i = 0; i < 90; i++) {
+          const s = document.createElement("span");
+          const size = 1 + Math.random() * 2.5;
+          s.className = "star";
+          s.style.cssText =
+            "left:" +
+            Math.random() * 100 +
+            "%;top:" +
+            Math.random() * 100 +
+            "%;" +
+            "width:" +
+            size +
+            "px;height:" +
+            size +
+            "px;" +
+            "--d:" +
+            (2 + Math.random() * 4) +
+            "s;--delay:" +
+            Math.random() * 4 +
+            "s;";
+          sky.appendChild(s);
+        }
+
+        function shootingStar() {
+          if (reduce) return;
+          const s = document.createElement("span");
+          s.className = "shoot";
+          s.style.left = 40 + Math.random() * 55 + "vw";
+          s.style.top = Math.random() * 40 + "vh";
+          document.body.appendChild(s);
+          setTimeout(() => s.remove(), 1400);
+        }
+        function shower(n) {
+          for (let i = 0; i < n; i++) setTimeout(shootingStar, i * 260);
+        }
+        setInterval(shootingStar, 6000);
+
+        /* ---------- scene switching ---------- */
+        const scenes = [
+          "scene-wish",
+          "scene-promises",
+          "scene-ask",
+          "scene-end",
+        ];
+        function go(id) {
+          scenes.forEach((s) => ($id(s).hidden = s !== id));
+          window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+        }
+
+        /* ---------- promises ---------- */
+        const PROMISES = [
+          "I promise to hold your hand through every season, even the loud and difficult ones.",
+          "I promise to be your calm whenever the world feels too heavy.",
+          "I promise to keep choosing you, every single day.",
+          "I promise that no distance will ever be bigger than my love for you.",
+        ];
+        const textEl = $id("promise-text");
+        const stepEl = $id("promise-step");
+        const nextBtn = $id("next-btn");
+        const dots = $id("dots");
+        let current = 0;
+        let typer = null;
+
+        dots.innerHTML = PROMISES.map(() => "<span></span>").join("");
+
+        function typePromise() {
+          clearInterval(typer);
+          const full = PROMISES[current];
+          stepEl.textContent =
+            "Promise " + (current + 1) + " of " + PROMISES.length;
+          [...dots.children].forEach((d, i) =>
+            d.classList.toggle("on", i <= current),
+          );
+          nextBtn.hidden = true;
+          textEl.classList.remove("done");
+          textEl.textContent = "";
+
+          if (reduce) {
+            textEl.textContent = full;
+            finishTyping();
+            return;
+          }
+          let i = 0;
+          typer = setInterval(() => {
+            textEl.textContent = full.slice(0, ++i);
+            if (i >= full.length) {
+              clearInterval(typer);
+              finishTyping();
+            }
+          }, 38);
+        }
+        function finishTyping() {
+          textEl.classList.add("done");
+          nextBtn.textContent =
+            current === PROMISES.length - 1 ? "One last thing 💌" : "Next 💫";
+          nextBtn.hidden = false;
+        }
+
+        $id("wish-btn").addEventListener("click", () => {
+          shower(7);
+          if (typeof burstHearts === "function") burstHearts(14);
+          setTimeout(() => {
+            go("scene-promises");
+            current = 0;
+            typePromise();
+          }, 900);
+        });
+
+        nextBtn.addEventListener("click", () => {
+          if (current < PROMISES.length - 1) {
+            current++;
+            typePromise();
+            shower(2);
+          } else {
+            go("scene-ask");
+          }
+        });
+
+        /* ---------- the question ---------- */
+        const noBtn = $id("no-btn");
+        const yesBtn = $id("yes-btn");
+        let dodges = 0;
+
+        function dodge() {
+          dodges++;
+          if (dodges >= 5) {
+            noBtn.textContent = "Okay, yes 💗";
+            noBtn.style.transform = "none";
+            noBtn.onclick = sayYes;
+            return;
+          }
+          const x = (Math.random() - 0.5) * 240;
+          const y = 20 + Math.random() * 70;
+          noBtn.style.transform =
+            "translate(" +
+            x +
+            "px," +
+            y +
+            "px) rotate(" +
+            (Math.random() * 16 - 8) +
+            "deg)";
+          yesBtn.style.transform = "scale(" + (1 + dodges * 0.07) + ")";
+        }
+        noBtn.addEventListener("mouseenter", dodge);
+        noBtn.addEventListener(
+          "touchstart",
+          (e) => {
+            if (dodges < 5) {
+              e.preventDefault();
+              dodge();
+            }
+          },
+          { passive: false },
+        );
+        noBtn.addEventListener("click", () => {
+          if (dodges < 5) dodge();
+        });
+
+        function sayYes() {
+          go("scene-end");
+          shower(10);
+          if (typeof confetti === "function") confetti(120);
+          if (typeof burstHearts === "function") burstHearts(30);
+          setTimeout(() => {
+            if (typeof confetti === "function") confetti(80);
+          }, 1200);
+        }
+        yesBtn.addEventListener("click", sayYes);
+      })();
+    </script>
+  </body>
 </html>
