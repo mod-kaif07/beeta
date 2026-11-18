@@ -3,42 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Birthday Surprise</title>
+    <title>For Nitya ❤️</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="lock-page">
-    <div class="floating-hearts" aria-hidden="true"></div>
+  <body data-page="login">
+    <main class="center-screen">
+      <div class="lock-card glass">
+        <div class="lock-icon">🔒</div>
+        <p class="eyebrow">A surprise for the love of my life</p>
+        <h1>Hello, <em>Beautiful</em></h1>
+        <p class="sub">
+          This little world is locked with a secret word that only you would
+          know.
+        </p>
 
-    <main class="lock-screen">
-      <div class="lock-card">
-        <p class="eyebrow">For the love of my life</p>
-        <h1>Happy Birthday, Love</h1>
-        <p class="subtitle">This page is protected by a secret passcode.</p>
-
-        <form id="password-form" class="password-form">
-          <label for="passcode" class="sr-only">Passcode</label>
+        <form id="login-form" class="login-form">
+          <label for="password" style="position: absolute; left: -9999px"
+            >Password</label
+          >
           <input
-            id="passcode"
-            name="passcode"
+            id="password"
             type="password"
-            placeholder="Enter your special code"
+            placeholder="Enter the secret word"
             autocomplete="off"
           />
           <button type="submit" class="btn btn-primary">
-            Unlock the surprise
+            Unlock the surprise ✨
           </button>
         </form>
-
-        <p id="password-error" class="password-error" aria-live="polite"></p>
+        <p id="login-error" class="login-error" hidden>
+          That's not it, my love. Try again 💗
+        </p>
       </div>
     </main>
-
     <script src="js/script.js"></script>
   </body>
 </html>

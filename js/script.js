@@ -70,63 +70,73 @@ const MEMORIES = [
    3. PHOTO ALBUM
 ========================================================== */
 
-
 const PHOTOS = [
   {
     src: "images/r.1.jpg",
     title: "The Girl Who Stole My Heart ❤️",
-    caption: "That first meet gave me a memory I'll cherish forever. Your smile is still my favourite view."
+    caption:
+      "That first meet gave me a memory I'll cherish forever. Your smile is still my favourite view.",
   },
   {
     src: "images/r.2.jpg",
     title: "My Favourite Person 🥹",
-    caption: "Every second with you feels special. I could look at you a thousand times and still fall in love again."
+    caption:
+      "Every second with you feels special. I could look at you a thousand times and still fall in love again.",
   },
   {
     src: "images/r.3.jpg",
     title: "My Beautiful Bandi 🌙",
-    caption: "You don't even realise how beautiful you are, especially when you smile. I'm the luckiest to have you."
+    caption:
+      "You don't even realise how beautiful you are, especially when you smile. I'm the luckiest to have you.",
   },
   {
     src: "images/r.4.jpg",
     title: "A Promise of Forever 💍",
-    caption: "Distance may separate our places, but nothing can separate two hearts that truly belong together."
+    caption:
+      "Distance may separate our places, but nothing can separate two hearts that truly belong together.",
   },
   {
     src: "images/rr.jpg",
     title: "My Pretty Girl 🎀",
-    caption: "Your eyes, your smile, your little expressions — everything about you is special to me."
+    caption:
+      "Your eyes, your smile, your little expressions — everything about you is special to me.",
   },
   {
     src: "images/r.5.png",
     title: "My Cutie Pie 🧸",
-    caption: "If I could save one feeling forever, it would be the happiness I feel whenever I'm with you."
+    caption:
+      "If I could save one feeling forever, it would be the happiness I feel whenever I'm with you.",
   },
   {
     src: "images/b1.png",
     title: "My Whole World 🌍",
-    caption: "Among millions of people, my heart somehow found its favourite person — YOU."
+    caption:
+      "Among millions of people, my heart somehow found its favourite person — YOU.",
   },
   {
     src: "images/b2.jpg",
     title: "My Princess 👑",
-    caption: "You deserve all the love, happiness and beautiful little things this world has to offer."
+    caption:
+      "You deserve all the love, happiness and beautiful little things this world has to offer.",
   },
   {
     src: "images/b4.jpg",
     title: "The Most Beautiful Soul 💗",
-    caption: "Pretty is an understatement. Your heart, your nature and your smile make you one of a kind."
+    caption:
+      "Pretty is an understatement. Your heart, your nature and your smile make you one of a kind.",
   },
   {
     src: "images/b3.jpg",
     title: "My Nitya, My Happiness 🫶",
-    caption: "I don't need a perfect world. Having you in mine makes everything feel perfect."
+    caption:
+      "I don't need a perfect world. Having you in mine makes everything feel perfect.",
   },
   {
     src: "images/b6.jpg",
     title: "Forever My Favourite ❤️",
-    caption: "No matter how many pictures I take, none can capture how beautiful you look through my eyes."
-  }
+    caption:
+      "No matter how many pictures I take, none can capture how beautiful you look through my eyes.",
+  },
 ];
 
 /* ==========================================================
@@ -135,17 +145,11 @@ const PHOTOS = [
 
 const NAV = [
   ["index.html", "Home"],
-
   ["birthday.html", "Birthday Wish"],
-
   ["memories.html", "Our Memories"],
-
   ["gallery.html", "Photo Album"],
-
   ["love-letter.html", "Love Letter"],
-
-
-
+  ["our-journey.html", "Our Journey"],
   ["final-surprise.html", "Final Surprise"],
 ];
 
@@ -954,58 +958,24 @@ function renderGallery() {
 
   container.innerHTML = PHOTOS.map(
     (photo, index) => `
-
       <figure class="photo-card glass reveal">
-
         <button
-
           type="button"
-
           data-index="${index}"
-
           aria-label="View ${esc(photo.title)} full screen"
-
         >
-
           <img
-
             src="${esc(photo.src)}"
-
             alt="${esc(photo.title)}: ${esc(photo.caption)}"
-
             loading="lazy"
-
           >
-
         </button>
 
-
         <figcaption class="cap">
-
-          <span class="tag">
-
-            ${esc(photo.date)}
-
-          </span>
-
-
-          <h3>
-
-            ${esc(photo.title)}
-
-          </h3>
-
-
-          <p>
-
-            ${esc(photo.caption)}
-
-          </p>
-
+          <h3>${esc(photo.title)}</h3>
+          <p>${esc(photo.caption)}</p>
         </figcaption>
-
       </figure>
-
     `,
   ).join("");
 
@@ -1089,7 +1059,7 @@ function initLightbox() {
 
     image.alt = photo.title;
 
-    caption.textContent = `${photo.title} · ${photo.date} – ${photo.caption}`;
+    caption.textContent = `${photo.title} – ${photo.caption}`;
   }
 
   /* ---------- CLOSE ---------- */

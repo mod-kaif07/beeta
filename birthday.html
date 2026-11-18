@@ -1,121 +1,81 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Birthday Surprise</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="container nav-bar">
-        <a href="birthday.html" class="brand">♡ Birthday</a>
-        <nav class="nav-links">
-          <a href="birthday.html">Home</a>
-          <a href="memories.html">Memories</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="love-letter.html">Letter</a>
-          <a href="our-journey.html">Journey</a>
-          <a href="final-surprise.html">Finale</a>
-        </nav>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday | For Nitya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="birthday">
+  <header id="site-header" class="site-header"></header>
 
-    <main>
-      <section class="hero section">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">A little celebration for my favorite person</p>
-            <h1>Happy Birthday, My Love</h1>
-            <p>
-              Every year with you feels like a new chapter full of laughter,
-              warmth, and a love that makes the world brighter. Today is a
-              reminder of how lucky I am to call you mine.
-            </p>
-            <div class="hero-actions">
-              <a href="love-letter.html" class="btn btn-primary"
-                >Read My Letter</a
-              >
-              <a href="gallery.html" class="btn btn-secondary"
-                >See Our Memories</a
-              >
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <div class="gift-box">
-              <span class="sparkle sparkle-1">✦</span>
-              <span class="sparkle sparkle-2">✦</span>
-              <span class="sparkle sparkle-3">✦</span>
-              <div class="gift-wrap">
-                <div class="lid"></div>
-                <div class="box"></div>
-              </div>
-            </div>
-            <p class="tagline">
-              Made with all my love, for your beautiful heart.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-heading center">
-            <p class="eyebrow">A promise</p>
-            <h2>Why you are my forever favorite</h2>
-          </div>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <span>💖</span>
-              <h3>Warmth</h3>
-              <p>
-                You make every ordinary day feel comforting, safe, and full of
-                joy.
-              </p>
-            </article>
-            <article class="feature-card">
-              <span>🌷</span>
-              <h3>Joy</h3>
-              <p>
-                Your smile turns even the hardest days into moments worth
-                smiling about.
-              </p>
-            </article>
-            <article class="feature-card">
-              <span>✨</span>
-              <h3>Magic</h3>
-              <p>
-                With you, even the smallest routines become beautiful memories.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section soft-bg">
-        <div class="container quote-block">
-          <p class="quote">
-            “The best thing to hold onto in life is each other.”
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">A little celebration for my favourite person</p>
+          <h1 class="display">Happy Birthday, <em>My Love</em></h1>
+          <p class="text">
+            Every year with you feels like a new chapter full of laughter, warmth,
+            and a love that makes the world brighter. Today is a reminder of how
+            lucky I am to call you mine.
           </p>
-          <p class="quote-author">— Audrey Hepburn</p>
+          <div id="countdown" class="countdown">Today is your day. 🎉</div>
+          <div class="hero-actions">
+            <a href="love-letter.html" class="btn btn-primary">Read my letter 💌</a>
+            <a href="gallery.html" class="btn">See our photos</a>
+            <button id="confetti-btn" type="button" class="btn">🎉 Celebrate</button>
+          </div>
         </div>
-      </section>
-    </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>Made with love, patience, and endless affection.</p>
+        <div class="hero-card glass reveal">
+          <div class="gift">
+            <span class="spark">✦</span><span class="spark">✦</span><span class="spark">✦</span>
+            <span class="gift-emoji">🎁</span>
+          </div>
+          <p class="tagline">Made with all my love,<br />for your beautiful heart.</p>
+        </div>
       </div>
-    </footer>
+    </section>
 
-    <script src="js/script.js"></script>
-  </body>
+    <section class="section">
+      <div class="container">
+        <div class="center reveal">
+          <p class="eyebrow">A promise</p>
+          <h2 class="section-title">Why you are my forever favourite</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature glass reveal">
+            <div class="ico">💖</div>
+            <h3>Warmth</h3>
+            <p>You make every ordinary day feel comforting, safe and full of joy.</p>
+          </article>
+          <article class="feature glass reveal">
+            <div class="ico">🌷</div>
+            <h3>Joy</h3>
+            <p>Your smile turns even the hardest days into moments worth smiling about.</p>
+          </article>
+          <article class="feature glass reveal">
+            <div class="ico">✨</div>
+            <h3>Magic</h3>
+            <p>With you, even the smallest routines become beautiful memories.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container glass quote-block reveal">
+        <p class="quote">“The best thing to hold onto in life is each other.”</p>
+        <p class="quote-by">Audrey Hepburn</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">Made with love, patience and endless affection ❤️</footer>
+  <script src="js/script.js"></script>
+</body>
 </html>
