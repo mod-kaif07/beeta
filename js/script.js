@@ -1,28 +1,19 @@
 /* ==========================================================
    BIRTHDAY SURPRISE FOR NITYA
    COMPLETE SHARED JAVASCRIPT
-   HTML + CSS + VANILLA JAVASCRIPT
    ========================================================== */
 
-/* ==========================================================
-   1. CONFIG
-========================================================== */
+/* ---------- 1. CONFIG ---------- */
 
 const CONFIG = {
   password: "nitya",
-
   birthdayDate: "",
-
   ramadanDate: "",
-
   eidMeetingDate: "",
-
   musicFile: "audio/romantic-music.mp3",
 };
 
-/* ==========================================================
-   2. MEMORIES
-========================================================== */
+/* ---------- 2. MEMORIES ---------- */
 
 const MEMORIES = [
   {
@@ -66,9 +57,7 @@ const MEMORIES = [
   },
 ];
 
-/* ==========================================================
-   3. PHOTO ALBUM
-========================================================== */
+/* ---------- 3. PHOTO ALBUM ---------- */
 
 const PHOTOS = [
   {
@@ -139,23 +128,17 @@ const PHOTOS = [
   },
 ];
 
-/* ==========================================================
-   4. NAVIGATION
-========================================================== */
+/* ---------- 4. NAVIGATION DATA ---------- */
 
 const NAV = [
   ["index.html", "Home"],
   ["birthday.html", "Birthday Wish"],
-  ["memories.html", "Our Memories"],
+  ["our-journey.html", "Our Journey"],
   ["gallery.html", "Photo Album"],
   ["love-letter.html", "Love Letter"],
-  ["our-journey.html", "Our Journey"],
   ["final-surprise.html", "Final Surprise"],
 ];
-
-/* ==========================================================
-   5. HELPERS
-========================================================== */
+/* ---------- 5. HELPERS ---------- */
 
 const $ = (selector, root = document) => root.querySelector(selector);
 
@@ -166,98 +149,41 @@ const reduceMotion = window.matchMedia(
 function esc(value) {
   return String(value ?? "").replace(
     /[&<>"]/g,
-
     (character) =>
       ({
         "&": "&amp;",
-
         "<": "&lt;",
-
         ">": "&gt;",
-
         '"': "&quot;",
       })[character],
   );
 }
 
-/* ==========================================================
-   6. IMAGE PLACEHOLDER
-========================================================== */
+/* ---------- 6. IMAGE PLACEHOLDER ---------- */
 
 function placeholder(path) {
   const svg = `
-
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="800"
-         height="1000">
-
+    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000">
       <defs>
-
-        <linearGradient id="gradient"
-                       x1="0"
-                       y1="0"
-                       x2="1"
-                       y2="1">
-
-          <stop offset="0"
-                stop-color="#ffd3e2"/>
-
-          <stop offset="1"
-                stop-color="#c4b0f5"/>
-
+        <linearGradient id="gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffd3e2"/>
+          <stop offset="1" stop-color="#c4b0f5"/>
         </linearGradient>
-
       </defs>
-
-      <rect width="800"
-            height="1000"
-            fill="url(#gradient)"/>
-
-      <text x="400"
-            y="450"
-            font-size="120"
-            text-anchor="middle">
-
-        ❤
-
-      </text>
-
-      <text x="400"
-            y="560"
-            font-size="34"
-            text-anchor="middle"
-            fill="#3b1a49"
-            font-family="sans-serif">
-
-        Add your photo:
-
-      </text>
-
-      <text x="400"
-            y="610"
-            font-size="28"
-            text-anchor="middle"
-            fill="#3b1a49"
-            font-family="sans-serif">
-
-        ${esc(path)}
-
-      </text>
-
+      <rect width="800" height="1000" fill="url(#gradient)"/>
+      <text x="400" y="450" font-size="120" text-anchor="middle">❤</text>
+      <text x="400" y="560" font-size="34" text-anchor="middle" fill="#3b1a49" font-family="sans-serif">Add your photo:</text>
+      <text x="400" y="610" font-size="28" text-anchor="middle" fill="#3b1a49" font-family="sans-serif">${esc(path)}</text>
     </svg>
-
   `;
 
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
-/* ==========================================================
-   7. IMAGE ERROR HANDLING
-========================================================== */
+/* ---------- 7. IMAGE ERROR HANDLING ---------- */
 
 document.addEventListener(
   "error",
-
   (event) => {
     const img = event.target;
 
@@ -270,13 +196,10 @@ document.addEventListener(
       img.src = placeholder(original);
     }
   },
-
   true,
 );
 
-/* ==========================================================
-   8. PASSWORD GATE
-========================================================== */
+/* ---------- 8. PASSWORD GATE ---------- */
 
 function isUnlocked() {
   return sessionStorage.getItem("unlocked") === "yes";
@@ -299,7 +222,6 @@ function initLogin() {
     event.preventDefault();
 
     const input = $("#password");
-
     const error = $("#login-error");
 
     if (!input || !error) return;
@@ -316,9 +238,7 @@ function initLogin() {
       error.hidden = false;
 
       form.classList.remove("shake");
-
       void form.offsetWidth;
-
       form.classList.add("shake");
 
       input.select();
@@ -326,9 +246,7 @@ function initLogin() {
   });
 }
 
-/* ==========================================================
-   9. NAVIGATION
-========================================================== */
+/* ---------- 9. NAVIGATION ---------- */
 
 function buildNav() {
   const header = $("#site-header");
@@ -339,60 +257,30 @@ function buildNav() {
 
   const links = NAV.map(
     ([href, label]) => `
-
-      <a href="${href}"
-
-         ${href === currentPage ? 'aria-current="page"' : ""}>
-
+      <a href="${href}" ${href === currentPage ? 'aria-current="page"' : ""}>
         ${esc(label)}
-
       </a>
-
     `,
   ).join("");
 
   header.innerHTML = `
+    <a class="brand" href="index.html">For Nitya ❤️</a>
 
-    <a class="brand"
-       href="index.html">
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button>
 
-      For Nitya ❤️
-
-    </a>
-
-    <button class="nav-toggle"
-            aria-label="Menu"
-            aria-expanded="false"
-            aria-controls="nav">
-
-      ☰
-
-    </button>
-
-    <nav class="nav"
-         id="nav"
-         aria-label="Main navigation">
-
+    <nav class="nav" id="nav" aria-label="Main navigation">
       ${links}
-
     </nav>
-
   `;
 
   const toggle = $(".nav-toggle");
-
   const nav = $("#nav");
 
   if (!toggle || !nav) return;
 
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
-
-    toggle.setAttribute(
-      "aria-expanded",
-
-      String(open),
-    );
+    toggle.setAttribute("aria-expanded", String(open));
   });
 }
 
@@ -437,9 +325,7 @@ function initTransitions() {
   });
 }
 
-/* ==========================================================
-   10. FLOATING HEARTS
-========================================================== */
+/* ---------- 10. FLOATING HEARTS ---------- */
 
 function spawnHeart() {
   if (
@@ -452,15 +338,10 @@ function spawnHeart() {
   const heart = document.createElement("span");
 
   heart.className = "heart";
-
   heart.textContent = ["❤", "💗", "💕", "🌸"][Math.floor(Math.random() * 4)];
-
   heart.style.left = Math.random() * 100 + "vw";
-
   heart.style.fontSize = 14 + Math.random() * 22 + "px";
-
   heart.style.animationDuration = 7 + Math.random() * 6 + "s";
-
   heart.setAttribute("aria-hidden", "true");
 
   heart.addEventListener("animationend", () => {
@@ -476,9 +357,7 @@ function burstHearts(number) {
   }
 }
 
-/* ==========================================================
-   11. CONFETTI
-========================================================== */
+/* ---------- 11. CONFETTI ---------- */
 
 function confetti(number = 60) {
   if (reduceMotion) return;
@@ -491,19 +370,12 @@ function confetti(number = 60) {
     piece.className = "confetti";
 
     piece.style.cssText = `
-
       left:${Math.random() * 100}vw;
-
       width:8px;
-
       height:14px;
-
       background:${colors[i % colors.length]};
-
       animation-duration:${2 + Math.random() * 2.5}s;
-
       animation-delay:${Math.random() * 0.6}s;
-
     `;
 
     piece.addEventListener("animationend", () => {
@@ -514,9 +386,7 @@ function confetti(number = 60) {
   }
 }
 
-/* ==========================================================
-   12. MUSIC
-========================================================== */
+/* ---------- 12. MUSIC ---------- */
 
 function initMusic() {
   const audio = new Audio(CONFIG.musicFile);
@@ -526,24 +396,18 @@ function initMusic() {
   const button = document.createElement("button");
 
   button.className = "music-btn";
-
   button.setAttribute("aria-pressed", "false");
-
   button.setAttribute("aria-label", "Play music");
-
   button.textContent = "♪";
 
   button.addEventListener("click", () => {
     if (audio.paused) {
       audio
         .play()
-
         .then(() => {
           button.setAttribute("aria-pressed", "true");
-
           button.setAttribute("aria-label", "Pause music");
         })
-
         .catch(() => {
           alert(
             "Music file not found. Add audio/romantic-music.mp3 to your project.",
@@ -551,9 +415,7 @@ function initMusic() {
         });
     } else {
       audio.pause();
-
       button.setAttribute("aria-pressed", "false");
-
       button.setAttribute("aria-label", "Play music");
     }
   });
@@ -561,12 +423,10 @@ function initMusic() {
   document.body.appendChild(button);
 }
 
-/* ==========================================================
-   13. SCROLL REVEAL
-========================================================== */
+/* ---------- 13. SCROLL REVEAL ---------- */
 
 function initReveal() {
-  const items = document.querySelectorAll(".reveal");
+  const items = document.querySelectorAll(".reveal:not(.in)");
 
   if (!("IntersectionObserver" in window)) {
     items.forEach((item) => {
@@ -581,15 +441,11 @@ function initReveal() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in");
-
           observer.unobserve(entry.target);
         }
       });
     },
-
-    {
-      threshold: 0.15,
-    },
+    { threshold: 0.15 },
   );
 
   items.forEach((item) => {
@@ -597,9 +453,7 @@ function initReveal() {
   });
 }
 
-/* ==========================================================
-   14. BIRTHDAY PAGE
-========================================================== */
+/* ---------- 14. BIRTHDAY PAGE ---------- */
 
 function initBirthday() {
   const countdown = $("#countdown");
@@ -615,21 +469,17 @@ function initBirthday() {
 
     if (!target || difference <= 0) {
       countdown.textContent = "Today is your day. 🎉";
-
       return;
     }
 
     const days = Math.floor(difference / 86400000);
-
     const hours = Math.floor(difference / 3600000) % 24;
-
     const minutes = Math.floor(difference / 60000) % 60;
 
     countdown.textContent = `${days} days, ${hours} hours, ${minutes} minutes until your birthday`;
   };
 
   tick();
-
   setInterval(tick, 30000);
 
   const button = $("#confetti-btn");
@@ -637,7 +487,6 @@ function initBirthday() {
   if (button) {
     button.addEventListener("click", () => {
       confetti(80);
-
       burstHearts(14);
     });
   }
@@ -647,9 +496,7 @@ function initBirthday() {
   }, 600);
 }
 
-/* ==========================================================
-   15. MEMORIES TIMELINE
-========================================================== */
+/* ---------- 15. MEMORIES TIMELINE ---------- */
 
 function renderTimeline() {
   const container = $("#timeline");
@@ -703,145 +550,73 @@ function initMorePhotos(container) {
   });
 }
 
-/* ==========================================================
-   16. OUR JOURNEY
-   PREMIUM MEMORY CARDS
-========================================================== */
+/* ---------- 16. OUR JOURNEY (BRANCH TIMELINE) ---------- */
 
 function renderJourney() {
   const container = $("#journey");
 
   if (!container) return;
 
-  /* ---------- MEMORY DATA ---------- */
+  container.innerHTML = MEMORIES.map((memory, index) => {
+    const extra = Array.isArray(memory.more) ? memory.more.length : 0;
 
-  const cards = MEMORIES.map((memory, index) => ({
-    date: memory.date,
-
-    title: memory.title,
-
-    text: memory.text,
-
-    image: memory.image,
-
-    alt: memory.alt,
-
-    number: index + 1,
-  }));
-
-  /* ---------- RENDER CARDS ---------- */
-
-  container.innerHTML = cards
-    .map(
-      (memory, index) => `
-
+    return `
       <article
-
-        class="journey-card glass reveal"
-
+        class="journey-card reveal"
         draggable="true"
-
         tabindex="0"
-
         data-memory="${index}"
-
         aria-label="${esc(memory.title)}. Drag to rearrange."
-
       >
+        <span class="branch-dot" aria-hidden="true">♥</span>
 
-        <!-- PHOTO -->
-
-        <div class="journey-photo-wrap">
-
-          <img
-
-            class="journey-image"
-
-            src="${memory.image ? esc(memory.image) : placeholder("Add your journey photo")}"
-
-            data-original="${memory.image ? esc(memory.image) : ""}"
-
-            alt="${esc(memory.alt || memory.title)}"
-
-            loading="lazy"
-
-            draggable="false"
-
-          >
-
-          <span class="journey-photo-label">
-
-            OUR MEMORY ❤️
-
-          </span>
-
-        </div>
-
-
-        <!-- CONTENT -->
-
-        <div class="journey-content">
-
-          <span class="journey-date">
-
-            ${esc(memory.date)}
-
-          </span>
-
-
-          <h3 class="journey-title">
-
-            ${esc(memory.title)}
-
-          </h3>
-
-
-          <p class="journey-text">
-
-            ${esc(memory.text)}
-
-          </p>
-
-
-          <!-- FOOTER -->
-
-          <div class="journey-footer">
-
-            <span class="journey-number">
-
-              MEMORY ${String(index + 1).padStart(2, "0")}
-
-            </span>
-
-
-            <span class="journey-drag">
-
-              ⠿ DRAG TO MOVE
-
-            </span>
-
+        <div class="journey-box glass">
+          <div class="journey-photo-wrap">
+            <button type="button" class="zoom-trigger" data-zoom="0" aria-label="View ${esc(memory.title)} photo full screen">
+              <img
+                class="journey-image"
+                src="${memory.image ? esc(memory.image) : placeholder("Add your journey photo")}"
+                data-original="${memory.image ? esc(memory.image) : ""}"
+                alt="${esc(memory.alt || memory.title)}"
+                loading="lazy"
+                draggable="false"
+              >
+            </button>
+            <span class="journey-photo-label">OUR MEMORY ❤️</span>
           </div>
 
+          <div class="journey-content">
+            <span class="journey-date">${esc(memory.date)}</span>
+            <h3 class="journey-title">${esc(memory.title)}</h3>
+            <p class="journey-text">${esc(memory.text)}</p>
+
+            ${
+              extra
+                ? `<button type="button" class="more-photos-btn" data-zoom="1">
+                    <span>📸 See more photos</span>
+                    <span class="mp-count">+${extra}</span>
+                  </button>`
+                : ""
+            }
+
+            <div class="journey-footer">
+              <span class="journey-number"></span>
+              <span class="journey-drag">⠿ DRAG TO MOVE</span>
+            </div>
+          </div>
         </div>
-
       </article>
-
-    `,
-    )
-    .join("");
-
-  /* ---------- REVEAL ---------- */
+    `;
+  }).join("");
 
   initReveal();
-
-  /* ---------- DRAG AND DROP ---------- */
-
   initJourneyDragDrop();
+  initJourneyViewer();
 }
 
-/* ==========================================================
-   17. JOURNEY DRAG & DROP
-========================================================== */
+/* ---------- JOURNEY FULL-SCREEN VIEWER ---------- */
+
+/* ---------- 17. JOURNEY DRAG & DROP ---------- */
 
 function initJourneyDragDrop() {
   const container = $("#journey");
@@ -850,29 +625,19 @@ function initJourneyDragDrop() {
 
   let draggedCard = null;
 
-  /* ---------- DRAG START ---------- */
-
   container.addEventListener("dragstart", (event) => {
     const card = event.target.closest(".journey-card");
 
     if (!card) return;
 
     draggedCard = card;
-
     card.classList.add("dragging");
 
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = "move";
-
-      event.dataTransfer.setData(
-        "text/plain",
-
-        card.dataset.memory,
-      );
+      event.dataTransfer.setData("text/plain", card.dataset.memory);
     }
   });
-
-  /* ---------- DRAG OVER ---------- */
 
   container.addEventListener("dragover", (event) => {
     event.preventDefault();
@@ -882,29 +647,16 @@ function initJourneyDragDrop() {
     if (!target || !draggedCard || target === draggedCard) return;
 
     const rectangle = target.getBoundingClientRect();
-
-    const verticalPosition = event.clientY - rectangle.top;
-
-    const before = verticalPosition < rectangle.height / 2;
+    const before = event.clientY - rectangle.top < rectangle.height / 2;
 
     target.classList.add("drag-over");
 
     if (before) {
-      container.insertBefore(
-        draggedCard,
-
-        target,
-      );
+      container.insertBefore(draggedCard, target);
     } else {
-      container.insertBefore(
-        draggedCard,
-
-        target.nextSibling,
-      );
+      container.insertBefore(draggedCard, target.nextSibling);
     }
   });
-
-  /* ---------- DRAG LEAVE ---------- */
 
   container.addEventListener("dragleave", (event) => {
     const card = event.target.closest(".journey-card");
@@ -914,42 +666,24 @@ function initJourneyDragDrop() {
     }
   });
 
-  /* ---------- DROP ---------- */
-
   container.addEventListener("drop", (event) => {
     event.preventDefault();
 
-    container
-      .querySelectorAll(".journey-card")
-
-      .forEach((card) => {
-        card.classList.remove("drag-over");
-      });
+    container.querySelectorAll(".journey-card").forEach((card) => {
+      card.classList.remove("drag-over");
+    });
   });
 
-  /* ---------- DRAG END ---------- */
-
   container.addEventListener("dragend", () => {
-    if (draggedCard) {
-      draggedCard.classList.remove("dragging");
-    }
-
-    container
-      .querySelectorAll(".journey-card")
-
-      .forEach((card) => {
-        card.classList.remove("dragging");
-
-        card.classList.remove("drag-over");
-      });
+    container.querySelectorAll(".journey-card").forEach((card) => {
+      card.classList.remove("dragging");
+      card.classList.remove("drag-over");
+    });
 
     draggedCard = null;
   });
 }
-
-/* ==========================================================
-   18. PHOTO GALLERY
-========================================================== */
+/* ---------- 18. PHOTO GALLERY ---------- */
 
 function renderGallery() {
   const container = $("#gallery");
@@ -980,13 +714,10 @@ function renderGallery() {
   ).join("");
 
   initLightbox();
-
   initReveal();
 }
 
-/* ==========================================================
-   19. LIGHTBOX
-========================================================== */
+/* ---------- 19. LIGHTBOX ---------- */
 
 function initLightbox() {
   const gallery = $("#gallery");
@@ -996,57 +727,25 @@ function initLightbox() {
   const lightbox = document.createElement("div");
 
   lightbox.className = "lightbox";
-
   lightbox.setAttribute("role", "dialog");
-
   lightbox.setAttribute("aria-modal", "true");
-
   lightbox.setAttribute("aria-label", "Photo viewer");
 
   lightbox.innerHTML = `
-
-    <button class="lb-btn lb-close"
-            aria-label="Close">
-
-      ✕
-
-    </button>
-
-
-    <button class="lb-btn lb-prev"
-            aria-label="Previous photo">
-
-      ‹
-
-    </button>
-
-
+    <button class="lb-btn lb-close" aria-label="Close">✕</button>
+    <button class="lb-btn lb-prev" aria-label="Previous photo">‹</button>
     <img alt="">
-
-
     <p></p>
-
-
-    <button class="lb-btn lb-next"
-            aria-label="Next photo">
-
-      ›
-
-    </button>
-
+    <button class="lb-btn lb-next" aria-label="Next photo">›</button>
   `;
 
   document.body.appendChild(lightbox);
 
   const image = $("img", lightbox);
-
   const caption = $("p", lightbox);
 
   let index = 0;
-
   let opener = null;
-
-  /* ---------- SHOW PHOTO ---------- */
 
   function showPhoto(number) {
     index = (number + PHOTOS.length) % PHOTOS.length;
@@ -1054,27 +753,20 @@ function initLightbox() {
     const photo = PHOTOS[index];
 
     image.removeAttribute("data-fallback");
-
     image.src = photo.src;
-
     image.alt = photo.title;
 
     caption.textContent = `${photo.title} – ${photo.caption}`;
   }
 
-  /* ---------- CLOSE ---------- */
-
   function closeLightbox() {
     lightbox.classList.remove("open");
-
     document.body.style.overflow = "";
 
     if (opener) {
       opener.focus();
     }
   }
-
-  /* ---------- OPEN ---------- */
 
   gallery.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-index]");
@@ -1086,13 +778,10 @@ function initLightbox() {
     showPhoto(Number(button.dataset.index));
 
     lightbox.classList.add("open");
-
     document.body.style.overflow = "hidden";
 
     $(".lb-close", lightbox).focus();
   });
-
-  /* ---------- BUTTONS ---------- */
 
   $(".lb-close", lightbox).addEventListener("click", closeLightbox);
 
@@ -1104,36 +793,22 @@ function initLightbox() {
     showPhoto(index + 1);
   });
 
-  /* ---------- BACKGROUND CLICK ---------- */
-
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) {
       closeLightbox();
     }
   });
 
-  /* ---------- KEYBOARD ---------- */
-
   document.addEventListener("keydown", (event) => {
     if (!lightbox.classList.contains("open")) return;
 
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
-
-    if (event.key === "ArrowLeft") {
-      showPhoto(index - 1);
-    }
-
-    if (event.key === "ArrowRight") {
-      showPhoto(index + 1);
-    }
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") showPhoto(index - 1);
+    if (event.key === "ArrowRight") showPhoto(index + 1);
   });
 }
 
-/* ==========================================================
-   20. LOVE LETTER ENVELOPE
-========================================================== */
+/* ---------- 20. LOVE LETTER ENVELOPE ---------- */
 
 function initEnvelope() {
   const envelope = $("#envelope");
@@ -1143,15 +818,9 @@ function initEnvelope() {
   envelope.addEventListener("click", () => {
     const open = envelope.getAttribute("aria-expanded") !== "true";
 
-    envelope.setAttribute(
-      "aria-expanded",
-
-      String(open),
-    );
-
+    envelope.setAttribute("aria-expanded", String(open));
     envelope.setAttribute(
       "aria-label",
-
       open ? "Close the love letter" : "Open the love letter",
     );
 
@@ -1169,9 +838,7 @@ function initEnvelope() {
   });
 }
 
-/* ==========================================================
-   21. FINAL SURPRISE
-========================================================== */
+/* ---------- 21. FINAL SURPRISE ---------- */
 
 function initFinal() {
   const button = $("#reveal-btn");
@@ -1184,59 +851,32 @@ function initFinal() {
     if (!message) return;
 
     message.hidden = false;
-
     button.hidden = true;
-
-    button.setAttribute(
-      "aria-expanded",
-
-      "true",
-    );
+    button.setAttribute("aria-expanded", "true");
 
     confetti(100);
-
     burstHearts(30);
 
     message.scrollIntoView({
       behavior: reduceMotion ? "auto" : "smooth",
-
       block: "center",
     });
   });
 }
 
-/* ==========================================================
-   22. BOOT
-========================================================== */
+/* ---------- 22. BOOT ---------- */
 
 guardPages();
-
 buildNav();
-
 initTransitions();
-
 initLogin();
-
 initMusic();
-
 renderTimeline();
-
 renderJourney();
-
 renderGallery();
-
 initBirthday();
-
 initEnvelope();
-
 initFinal();
-
 initReveal();
 
-/* ---------- FLOATING HEARTS ---------- */
-
 setInterval(spawnHeart, 1100);
-
-/* ==========================================================
-   END OF SCRIPT
-========================================================== */
