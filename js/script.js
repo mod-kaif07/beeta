@@ -6,7 +6,7 @@
 /* ---------- 1. CONFIG ---------- */
 
 const CONFIG = {
-  password: "nitya",
+  password: "9142hbdnitz",
   birthdayDate: "",
   ramadanDate: "",
   eidMeetingDate: "",
@@ -552,7 +552,6 @@ function initMorePhotos(container) {
 
 /* ---------- 16. OUR JOURNEY (BRANCH TIMELINE) ---------- */
 
-
 /* ---------- OUR JOURNEY: ANIMATED MEMORY TREE ---------- */
 
 function renderJourney() {
@@ -630,7 +629,9 @@ function renderJourney() {
                     id="journey-photos-${index}"
                     hidden
                   >
-                    ${extra.map((src, i) => `
+                    ${extra
+                      .map(
+                        (src, i) => `
                       <button
                         type="button"
                         class="journey-thumb"
@@ -645,7 +646,9 @@ function renderJourney() {
                         >
                         <span class="thumb-heart">♥</span>
                       </button>
-                    `).join("")}
+                    `,
+                      )
+                      .join("")}
                   </div>
                 `
                 : ""
@@ -667,9 +670,7 @@ function renderJourney() {
     const button = event.target.closest(".more-photos-btn");
     if (!button) return;
 
-    const panel = document.getElementById(
-      button.getAttribute("aria-controls")
-    );
+    const panel = document.getElementById(button.getAttribute("aria-controls"));
 
     if (!panel) return;
 
@@ -678,11 +679,11 @@ function renderJourney() {
     button.setAttribute("aria-expanded", String(!isOpen));
     panel.hidden = isOpen;
 
-    button.querySelector(".more-chevron").textContent =
-      isOpen ? "⌄" : "⌃";
+    button.querySelector(".more-chevron").textContent = isOpen ? "⌄" : "⌃";
 
-    button.querySelector("span:first-child").textContent =
-      isOpen ? "♡ See more memories" : "♡ Hide memories";
+    button.querySelector("span:first-child").textContent = isOpen
+      ? "♡ See more memories"
+      : "♡ Hide memories";
 
     if (!isOpen) {
       panel.classList.remove("photos-enter");
